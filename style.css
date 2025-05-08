@@ -1,0 +1,22 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 12px;
+    width: 250px;
+  }
+  
+  input {
+    width: 100%;
+    padding: 6px;
+    margin-bottom: 8px;
+  }
+  
+  button {
+    width: 100%;
+    padding: 6px;
+  }
+  
+  #result {
+    margin-top: 10px;
+    word-break: break-all;
+  }
+  

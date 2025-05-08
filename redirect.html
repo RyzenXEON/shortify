@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Redirecting to {{LONG_URL}}...</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="refresh" content="0; url={{LONG_URL}}">
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding-top: 50px;
+      background-color: #f0f0f0;
+      color: #333;
+    }
+    .spinner {
+      border: 8px solid #f3f3f3;
+      border-top: 8px solid #3498db;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    a {
+      color: #3498db;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+   <script>
+    // Optional: More reliable JS redirect fallback if meta refresh fails or is slow
+    // It also replaces the meta tag just in case
+    window.onload = function() {
+        const meta = document.querySelector('meta[http-equiv="refresh"]');
+        const targetUrl = '{{LONG_URL}}'; // Grab placeholder again
+
+        if (meta) {
+            // Replace the meta tag's content
+            meta.setAttribute('content', '0; url=' + targetUrl);
+        }
+
+        // Fallback JS redirect
+        setTimeout(function() {
+            if (targetUrl && window.location.href.indexOf(targetUrl) === -1) { // Avoid redirect loop if placeholder not replaced
+                 // Check if the target URL looks like a valid URL (basic check)
+                 if (targetUrl.startsWith('http://') || targetUrl.startsWith('https://')) {
+                     window.location.replace(targetUrl); // Use replace
+                 } else {
+                     // Handle case where URL might be invalid or placeholder wasn't replaced
+                     document.body.innerHTML = '<h1>Redirect Failed</h1><p>Invalid target URL or placeholder not replaced.</p>';
+                 }
+            }
+        }, 100); // Small delay to allow meta refresh to potentially fire first
+    };
+    </script>
+</head>
+<body>
+  <div class="spinner"></div>
+  <p>Redirecting you shortly...</p>
+  <p>If you are not redirected, please click the link below:</p>
+  <p><a href="{{LONG_URL}}">Click here to redirect</a></p>
+</body>
+</html>
