@@ -39,3 +39,24 @@ graph TD
     D -- HTML Response --> B;
     B -- Cached HTML --> C;
     C -- Client Redirect --> H[Long URL];
+```
+### AWS Architecture Diagram
+![AWS Architecture Diagram](images/shortify_arch.png)
+
+### Required Policies
+
+Bucket Policy - Replace YOUR_BUCKET_NAME
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "PublicReadGetObject",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::YOUR_S3_BUCKET_NAME/*"
+        }
+    ]
+}
+
